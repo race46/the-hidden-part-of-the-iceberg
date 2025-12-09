@@ -10,9 +10,6 @@ export class Agent {
 
   @Prop({ type: MongooseSchema.Types.ObjectId, required: true })
   agency_id: MongooseSchema.Types.ObjectId;
-
-  @Prop()
-  earning: number = 0;
 }
 
 export const AgentSchema = SchemaFactory.createForClass(Agent);

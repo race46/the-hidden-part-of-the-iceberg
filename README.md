@@ -1,31 +1,12 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This is the backend part of Iceberg project. The core frameworks are `nest.js` and `mongoose`.
+
+The project is running in a free tier of aws ec2 instance. Here is the link of demo project: http://16.171.145.253
 
 ## Project setup
+
+❗ <b>Nodejs</b> and <b>npm</b> must be installed in order to complete project setup.
 
 ```bash
 $ npm install
@@ -57,42 +38,103 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Deployment
+## Configuring environment variables
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+There are environment files under main folder named `.env` and `.env.test`. `.env` file is used for development and deployment for now. It must be overwritten during development.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+There are no much configurations needed. Inside the env files, only running port and database url can be configured. There is a url of free tier of mongo atlas inside both env files. 
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+
+## Rest Api Endpoints
+
+`GET` /
+* returns 3 column api tester web page
+
+---
+
+`GET` /agency
+* return list of agencies
+
+`POST` /agency
+
+* creates an agency
+
+```json
+{
+  "name": "<agency-name>"
+}
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
+
+`GET` /agent
+* return agent list
+
+`GET` /agent/:agent-id
+* return agent, its agency and wallet information
+
+`GET` /agent/:agent-id/wallet-transactions
+* return transaction history of given agent
+
+`POST` /agent
+
+* creates and agent
+
+```json
+{
+  "agency_id": "<agency-id>",
+  "name": "<agent-name>"
+}
+```
+
+---
+
+`GET` /property
+* return list of properties that are listed
+
+`POST` /property
+* creates a property
+
+```json
+{
+  "name": "<property-name>",
+  "agent_id": "<agent-id>" // uploader
+}
+```
+
+---
+
+`GET` /agreement
+* return list of agreement ids
+
+`GET` /agreement/:agreement-id
+* returns details of that agreement
+
+`GET` /agreement/:agreement-id/stage
+* returns stages of that agreement
+
+`POST` /agreement
+
+```json
+{
+  "listing_agent_id": "<agent-id>",
+  "selling_agent_id": "<agent-id>",
+  "property_id": "<property-id>",
+  "type": "'sale' or 'rental'",
+  "price": "<price> number"
+}
+```
+
+`PUT` /agreement/:agreement-id/earnest-money
+* it changes agreement status from _agreement_ to _earnest-money_
+
+`PUT` /agreement/:agreement-id/title-deed
+* it changes agreement status from _earnest-money_ to _title-deed_
+
+`PUT` /agreement/:agreement-id/complete
+* it changes agreement status from _earnest-money_ to _completed_, it shares commissions.
+
 
 ## Resources
 
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Have a look at DESIGN.md file for project structure.
