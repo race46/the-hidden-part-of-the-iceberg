@@ -23,6 +23,9 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+
+# it start with pm2 -- build (npm run build) required before this action
+$ npm run start:pm2
 ```
 
 ## Run tests
@@ -42,8 +45,15 @@ $ npm run test:cov
 
 There are environment files under main folder named `.env` and `.env.test`. `.env` file is used for development and deployment for now. It must be overwritten during development.
 
-There are no much configurations needed. Inside the env files, only running port and database url can be configured. There is a url of free tier of mongo atlas inside both env files. 
+There are no too much configurations needed. Inside the env files, only running port and database url can be configured. There is a url of free tier of mongo atlas inside both env files. 
 
+In the project, there are agencies and agents. An agent have to have an agency. That is why an agency needs to be created in order to create an agent. An agent can create a property. There is no authentication, so that the creator need to be given in body.
+
+For an agreement creation, a selling agent, a listing agent and a property is needed beforehand.
+
+After creating an agreement, the status can be changed -> earnest-money -> title-deed -> completed
+
+Here is the rest apis to use.
 
 ## Rest Api Endpoints
 
