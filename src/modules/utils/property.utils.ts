@@ -26,8 +26,5 @@ export class PropertyUtils {
     property.has_active_transaction = true;
 
     await property.save({ session: session });
-    console.log('session:', session);
-    console.log('property:', propertyId);
-    console.log(property);
   }
 }

@@ -27,7 +27,7 @@ export class PropertyService {
       agent_id,
     });
 
-    return { name: property.name };
+    return { name: property.name, _id: property._id.toString() };
   }
 
   findAll() {

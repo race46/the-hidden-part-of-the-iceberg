@@ -41,10 +41,11 @@ export class AgencyService {
       await session.endSession();
 
       return {
-        _id: agency._id,
+        _id: agency._id.toString(),
         name: agency.name,
       };
     } catch (e) {
+      console.log(e);
       await session.abortTransaction();
       await session.endSession();
       throw e;

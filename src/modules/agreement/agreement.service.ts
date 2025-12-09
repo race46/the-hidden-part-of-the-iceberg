@@ -77,7 +77,7 @@ export class AgreementService {
       await session.commitTransaction();
       await session.endSession();
 
-      return { _id: agreement._id };
+      return { _id: agreement._id.toString() };
     } catch (exception) {
       await session.abortTransaction();
       await session.endSession();
@@ -217,7 +217,7 @@ export class AgreementService {
       await session.commitTransaction();
       await session.endSession();
 
-      return { _id: agreement?._id };
+      return { _id: agreement?._id.toString() };
     } catch (exception) {
       await session.abortTransaction();
       await session.endSession();

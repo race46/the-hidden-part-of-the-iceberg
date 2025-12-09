@@ -17,7 +17,7 @@ describe('AppController', () => {
       imports: [
         ConfigModule.forRoot({
           isGlobal: true,
-          envFilePath: `.env.${process.env.NODE_ENV || 'test'}`,
+          envFilePath: `.env.test`,
         }),
         MongooseModule.forRoot(process.env.DATABASE_URL ?? '', {
           serverSelectionTimeoutMS: 3000,

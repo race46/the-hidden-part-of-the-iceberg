@@ -56,7 +56,7 @@ export class AgentService {
       await session.commitTransaction();
       await session.endSession();
 
-      return { name: agent.name };
+      return { name: agent.name, _id: agent._id.toString() };
     } catch (e) {
       await session.abortTransaction();
       await session.endSession();

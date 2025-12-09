@@ -12,7 +12,7 @@ The rest modules have controller layer and service layer.
 
 #### Schemas
 
-All the schemas has `timestamp: true` attribute and createdAt and updatedAt fields are filled by orm library by default. Here are the all schemas.
+All the schemas has `timestamp: true` attribute and `_id`, `createdAt` and `updatedAt` fields are filled by orm library by default. Here are the all schemas.
 
 ```table
 Agency
