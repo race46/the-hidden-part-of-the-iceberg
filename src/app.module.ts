@@ -14,7 +14,9 @@ import { UtilsModule } from './modules/utils/utils.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env.test',
+      envFilePath: process.env.NODE_ENV
+        ? `.env.${process.env.NODE_ENV}`
+        : '.env',
     }),
     MongooseModule.forRoot(
       process.env.DATABASE_URL ?? 'mongodb://mongo-test:27018/nest_test',
