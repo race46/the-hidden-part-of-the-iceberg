@@ -114,6 +114,7 @@ There are no much configurations needed. Inside the env files, only running port
 * returns stages of that agreement
 
 `POST` /agreement
+* creates and agreement
 
 ```json
 {
